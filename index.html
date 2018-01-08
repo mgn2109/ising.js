@@ -37,15 +37,15 @@
             </div>
             <div>
                 <label class='eb_label' for="disorder" title="Disorder">Disorder</label>
-                <input style='width:150px;' type="range" id="temp" min=0 max=.5 step=0.000001 value=0 oninput='update_disorder()' onchange="update_disorder()"></input>
-                <span onclick='dotextbox(this.id)' class='eb_span' id="label_temp"></span>
+                <input style='width:150px;' type="range" id="disorder" min=0 max=.5 step=0.000001 value=0 oninput='update_disorder()' onchange="update_disorder()"></input>
+                <span onclick='dotextbox(this.id)' class='eb_span' id="label_disorder"></span>
                 <input style='width: 80px; display: none;' id='label_disorder_input' type='text' value='' onblur='undotextbox(this.id)'>
             </div>
             <div>
                 <label class='eb_label' for="dimensionality" title="Dimensionality">Dimensionality</label>
-                <input style='width:150px;' type="range" id="temp" min=0 max=1 step=0.000001 value=0 oninput='update_dimensionality()' onchange="update_dimensionality()"></input>
-                <span onclick='dotextbox(this.id)' class='eb_span' id="label_temp"></span>
-                <input style='width: 80px; display: none;' id='label_disorder_input' type='text' value='' onblur='undotextbox(this.id)'>
+                <input style='width:150px;' type="range" id="dimensionality" min=0 max=1 step=0.000001 value=0 oninput='update_dimensionality()' onchange="update_dimensionality()"></input>
+                <span onclick='dotextbox(this.id)' class='eb_span' id="label_dimensionality"></span>
+                <input style='width: 80px; display: none;' id='label_dimensionality_input' type='text' value='' onblur='undotextbox(this.id)'>
             </div>
             <div>
                 <label class='eb_label' for="frames" title="Samples per redraw">Sweep skip</label>
