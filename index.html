@@ -36,6 +36,12 @@
                 <input style='width: 80px; display: none;' id='label_field_input' type='text' value='' onblur='undotextbox(this.id)'>
             </div>
             <div>
+                <label class='eb_label' for="disorder" title="Disorder">Disorder</label>
+                <input style='width:150px;' type="range" id="temp" min=0 max=.5 step=0.000001 value=0 oninput='update_disorder()' onchange="update_disorder()"></input>
+                <span onclick='dotextbox(this.id)' class='eb_span' id="label_temp"></span>
+                <input style='width: 80px; display: none;' id='label_disorder_input' type='text' value='' onblur='undotextbox(this.id)'>
+            </div>
+            <div>
                 <label class='eb_label' for="frames" title="Samples per redraw">Sweep skip</label>
                 <input style="width:150px;" type="range" id="frames" min=-2 max=2 step=0.00001 value=0 oninput='update_frames()' onchange="update_frames()"></input>
                 <span onclick='dotextbox(this.id)' class='eb_span' id="label_frames"></span>
