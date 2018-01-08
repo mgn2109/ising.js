@@ -10,6 +10,8 @@ var gboard = null;
 var gN = 256;
 var gT = 2.26918531421;
 var gfield = 0;
+var gdisorder = 0;
+var gdimensionality = 1;
 
 var ge_avg, ge_var, gm_avg, gm_var;
 var gtable_de;
@@ -389,12 +391,21 @@ function update_temp(){
     document.getElementById('label_temp').innerHTML = toFixed(gT,6);
     calculateFlipTable(gT);
 }
+
 function update_field(){
     gfield = parseFloat(document.getElementById('field').value);
     document.getElementById('label_field').innerHTML = toFixed(gfield,6);
     calculateFlipTable(gT);
     reset_measurements();
 }
+
+function update_disorder(){
+    gdisorder = parseFloat(document.getElementById('disorder').value);
+    document.getElementById('label_disorder').innerHTML = toFixed(gdisorder,6);
+    calculateFlipTable(gT);
+    reset_measurements();
+}
+    
 function update_frames(){
     frameval = parseFloat(document.getElementById('frames').value);
     if (update_func=='metropolis') {
