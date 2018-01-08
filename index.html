@@ -88,6 +88,7 @@
     </div>
     <br>
     <br>
+    <br>
 
 <p>Simulation of a random-bond 2-D Ising model on a random graph.  You can choose between two update methods -
 metropolis and Wolff algorithm.  Several measurements are stored while running
@@ -110,9 +111,11 @@ to the right of the slider, typing in a number, and pressing enter.  They are:</
     <li>Sweep skip - the simulation can be graphics limited, this determines the
     number of sweeps between drawing</li>
     <li>Lattice size - grid size on a side, height = width</li>
+    <li>Quenched disorder - determines the probability that a particular bond is antiferromagnetic
+    <li>Dimensionality - determines the probability that a particular spin experiences 2-D interactions (as opposed to 1-D interactions)
 </ul>
 
-<p>Note: the graph can slow down the simulation at long times.  To speed up
+<p>For simplicity, the randomness of the model is fixed at initialization and run deterministically. Note: the graph can slow down the simulation at long times.  To speed up
 simulation, select 'none' for 'Graph type'.  Data is still being collected.</p>
 
 </div>
