@@ -7,6 +7,9 @@ var gbuffer;
 var gbufferdata;
 
 var gboard = null;
+var ghorizontalBonds = null;
+var gverticalBonds = null;
+var gdimensionalityBoard = null;
 var gN = 256;
 var gT = 2.26918531421;
 var gfield = 0;
@@ -73,6 +76,10 @@ function init_board(N, board){
     } else {
         for (var i=0; i<gN*gN; i++)
             gboard[i] = 2*Math.floor(Math.random()*2) - 1;
+	    ghorizontalBonds[i] = 1;
+	    gverticalBonds[i] = 1;
+	    gdimensionalityBoard[i] = 1;
+	
     }
 
     gpx_size = canvasN/gN;
