@@ -693,6 +693,15 @@ var init = function() {
             undotextbox('label_field_input');
         }
     }, false);
+    
+    document.getElementById('label_disorder_input').addEventListener("keydown", function(e) {
+        if (e.keyCode == 13){
+            e.preventDefault();
+            document.getElementById('disorder').value = document.getElementById('label_disorder_input').value;
+            update_disorder();
+            undotextbox('label_disorder_input');
+        }
+    }, false); 
 
     document.getElementById('label_frames_input').addEventListener("keydown", function(e) {
         if (e.keyCode == 13){ 
