@@ -7,9 +7,9 @@ var gbuffer;
 var gbufferdata;
 
 var gboard = null;
-var ghorizontalBonds = null;
-var gverticalBonds = null;
-var gdimensionalityBoard = null;
+var ghorizontalBonds = [];
+var gverticalBonds = [];
+var gdimensionalityBoard = [];
 var gN = 256;
 var gT = 2.26918531421;
 var gfield = 0;
@@ -68,20 +68,18 @@ function toFixed(value, precision, negspace) {
 function init_board(N, board){
     gt = 0;
     gboard = [];
-    ghorizontalBonds = [];
-    gverticalBonds = [];
-    gdimensionalityBoard = [];
     gN = N;
 
     if (board !== null){
         for (var i=0; i<gN*gN; i++)
-            gboard[i] = board[i]; 
+            gboard[i] = board[i];
     } else {
-        for (var i=0; i<gN*gN; i++)
+        for (var i=0; i<gN*gN; i++) {
             gboard[i] = 2*Math.floor(Math.random()*2) - 1;
 	    ghorizontalBonds[i] = 1;
 	    gverticalBonds[i] = 1;
 	    gdimensionalityBoard[i] = 1;
+	}
 	
     }
 
@@ -115,16 +113,16 @@ function display_board(N, board){
     }
 }
 
-function energy(x, y, N, b){
-    return -b[x+y*N]*(b[x + ((y+1).mod(N))*N] + 
-        b[x + ((y-1).mod(N))*N] + 
-        b[(x+1).mod(N) + y*N] + 
-        b[(x-1).mod(N) + y*N] + gfield);
+function energy(x, y, N, b, c, d){
+    return -b[x+y*N]*(c[x + ((y+1).mod(N))*N]*b[x + ((y+1).mod(N))*N] + 
+        c[x + y*N]*b[x + ((y-1).mod(N))*N] + 
+        d[x+ y*N]*b[(x+1).mod(N) + y*N] + 
+        d[(x-1).mod(N) + y*N]*b[(x-1).mod(N) + y*N] + gfield);
 }
 
 
-function energy_difference(x, y, N, b){
-    return -2*energy(x,y,N,b);
+function energy_difference(x, y, N, b, c, d){
+    return -2*energy(x,y,N,b,c,d);
 }
 
 function neighborCount(x, y, N, b){
@@ -139,7 +137,7 @@ function update_metropolis(){
     var x = Math.floor(Math.random()*gN);
     var y = Math.floor(Math.random()*gN);
     var ind = x + y*gN;
-    var de = energy_difference(x, y, gN, gboard);
+    var de = energy_difference(x, y, gN, gboard, gverticalBonds, ghorizontalBonds);
     if (de <= 0 || Math.random() < Math.exp(-de / gT)){
         gboard[ind] = -gboard[ind];
 
@@ -224,7 +222,7 @@ function update_wolff() {
             gboard[ind] = -state;
             put_pixel(x,y, gpx_size, -state);
 
-            de = energy_difference(x, y, gN, gboard);
+            de = energy_difference(x, y, gN, gboard, gverticalBonds, ghorizontalBonds);
             genergy += 1.0*de/(gN*gN);
             gmag += 2.0*gboard[ind]/(gN*gN);
         }
@@ -285,7 +283,7 @@ function reset_measurements(){
 
     for (var i=0; i<gN; i++){
     for (var j=0; j<gN; j++){
-        genergy += energy(i,j,gN, gboard);
+        genergy += energy(i,j,gN, gboard, gverticalBonds, ghorizontalBonds);
         gmag += gboard[i+gN*j];
     }}
     genergy /= gN*gN*2;
@@ -413,7 +411,24 @@ function update_disorder(){
     gdisorder = parseFloat(document.getElementById('disorder').value);
     document.getElementById('label_disorder').innerHTML = toFixed(gdisorder,6);
     calculateFlipTable(gT);
+
+    for (var i=0; i<gN*gN; i++) {
+
+	if(Math.random() > gdisorder) {
+	    gverticalBonds[i] = 1
+	} else {
+	    gverticalBonds[i] = -1
+	}
+	
+	if(Math.random() > gdisorder) {
+	    ghorizontalBonds[i] = 1
+	} else {
+	    ghorizontalBonds[i] = -1
+	}
+    }
+
     reset_measurements();
+
 }
 
 function update_dimensionality(){
