@@ -422,6 +422,7 @@ function update_display(){
     document.getElementById('label_temp').innerHTML = toFixed(gT,6);
     document.getElementById('label_field').innerHTML = toFixed(gfield,6);
     document.getElementById('label_frames').innerHTML = toFixed(frameskip,6);
+    document.getElementById('label_disorder').innerHTML = toFixed(gdisorder,6);
 }
 
 function update_method() {
