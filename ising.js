@@ -68,6 +68,9 @@ function toFixed(value, precision, negspace) {
 function init_board(N, board){
     gt = 0;
     gboard = [];
+    ghorizontalBonds = [];
+    gverticalBonds = [];
+    gdimensionalityBoard = [];
     gN = N;
 
     if (board !== null){
