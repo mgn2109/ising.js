@@ -113,16 +113,16 @@ function display_board(N, board){
     }
 }
 
-function energy(x, y, N, b, c, d){
+function energy(x, y, N, b, c, d, e){
     return -b[x+y*N]*(c[x + ((y+1).mod(N))*N]*b[x + ((y+1).mod(N))*N] + 
         c[x + y*N]*b[x + ((y-1).mod(N))*N] + 
-        d[x+ y*N]*b[(x+1).mod(N) + y*N] + 
-        d[(x-1).mod(N) + y*N]*b[(x-1).mod(N) + y*N] + gfield);
+        e[x+y*N]*(d[x+ y*N]*b[(x+1).mod(N) + y*N] + 
+        d[(x-1).mod(N) + y*N]*b[(x-1).mod(N) + y*N]) + gfield);
 }
 
 
-function energy_difference(x, y, N, b, c, d){
-    return -2*energy(x,y,N,b,c,d);
+function energy_difference(x, y, N, b, c, d, e){
+    return -2*energy(x,y,N,b,c,d,e);
 }
 
 function neighborCount(x, y, N, b){
@@ -137,7 +137,7 @@ function update_metropolis(){
     var x = Math.floor(Math.random()*gN);
     var y = Math.floor(Math.random()*gN);
     var ind = x + y*gN;
-    var de = energy_difference(x, y, gN, gboard, gverticalBonds, ghorizontalBonds);
+    var de = energy_difference(x, y, gN, gboard, gverticalBonds, ghorizontalBonds, gdimensionalityBoard);
     if (de <= 0 || Math.random() < Math.exp(-de / gT)){
         gboard[ind] = -gboard[ind];
 
@@ -222,7 +222,7 @@ function update_wolff() {
             gboard[ind] = -state;
             put_pixel(x,y, gpx_size, -state);
 
-            de = energy_difference(x, y, gN, gboard, gverticalBonds, ghorizontalBonds);
+            de = energy_difference(x, y, gN, gboard, gverticalBonds, ghorizontalBonds, gdimensionalityBoard);
             genergy += 1.0*de/(gN*gN);
             gmag += 2.0*gboard[ind]/(gN*gN);
         }
@@ -283,7 +283,7 @@ function reset_measurements(){
 
     for (var i=0; i<gN; i++){
     for (var j=0; j<gN; j++){
-        genergy += energy(i,j,gN, gboard, gverticalBonds, ghorizontalBonds);
+        genergy += energy(i,j,gN, gboard, gverticalBonds, ghorizontalBonds, gdimensionalityBoard);
         gmag += gboard[i+gN*j];
     }}
     genergy /= gN*gN*2;
@@ -415,26 +415,35 @@ function update_disorder(){
     for (var i=0; i<gN*gN; i++) {
 
 	if(Math.random() > gdisorder) {
-	    gverticalBonds[i] = 1
+	    gverticalBonds[i] = 1;
 	} else {
-	    gverticalBonds[i] = -1
+	    gverticalBonds[i] = -1;
 	}
 	
 	if(Math.random() > gdisorder) {
-	    ghorizontalBonds[i] = 1
+	    ghorizontalBonds[i] = 1;
 	} else {
-	    ghorizontalBonds[i] = -1
+	    ghorizontalBonds[i] = -1;
 	}
     }
 
     reset_measurements();
-
 }
 
 function update_dimensionality(){
     gdimensionality = parseFloat(document.getElementById('dimensionality').value);
     document.getElementById('label_dimensionality').innerHTML = toFixed(gdimensionality,6);
     calculateFlipTable(gT);
+
+    for (var i=0; i<gN*gN; i++) {
+	
+	if(Math.random() < gdimensionality) {
+	    gdimensionalityBoard[i] = 1;
+	} else {
+	    gdimensionalityBoard[i] = 0;
+	}
+    }
+
     reset_measurements();
 }
     
