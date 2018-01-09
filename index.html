@@ -100,35 +100,50 @@
     </div>
     <br>
     <br>
-    <br>
-<p></p>
 
-<p>Simulation of a random-bond 2-D Ising model on a random graph.  You can choose between two update methods -
-metropolis and Wolff algorithm.  Several measurements are stored while running
+<p>Simulation of a random-bond Ising model on a random graph, similar
+    to what is
+    detailed in the note.  You can choose between two update methods - the
+Metropolis and Wolff algorithms.  Note that the Wolff algorithm
+    doesn't play well yet and disorder works best with the maximum
+    lattice size of 512x512 spins.  The intent here is to just get a picture of
+    what's going on.</p>
+
+<p>    Several measurements are stored while running
 including the current energy and magnetization, their averages, and their
 variances.  The current value of each can be found at the top of the right
-panel.  A graph of one value versus time can be directly below that.  The
+panel.  A graph of one value versus time can be found directly below that.  The
 particular variable can be changed via the 'Graph type' dropdown box.  These
-measurements can be reset at any time by pressing 'Reset data'.  The 'Reset'
-button restarts the simulation at infinite temperature (implies 'Reset
-data').</p>
+measurements can be reset at any time by pressing the 'Reset data' button.  The 'Restart'
+button restarts the simulation at infinite temperature (and also
+    resets the data).</p>
 
-<p>The measurements as a time series as well as the graph and actual lattice
+<p>The measurements can be downloaded as either a time series or a
+    graph, and the actual lattice
 can be downloaded via the buttons on the right.</p>
 
 <p>The other parameters can be set by the sliders or by clicking on the number
 to the right of the slider, typing in a number, and pressing enter.  They are:</p>
 <ul>
-    <li>Temperature - typical temperature, critical is around T_c = 2.26918531421</li>
+    <li>Temperature - typical temperature, critical for the usual 2-D
+  model around T_c = 2.26918531421</li>
     <li>Field - external magnetic field, H</li>
     <li>Disorder - determines the probability that a particular bond is antiferromagnetic</li>
-    <li>Dimensionality - determines the probability that a particular spin experiences 2-D interactions (as opposed to 1-D interactions)</li>
+    <li>Dimensionality - determines the probability that a particular
+    spin experiences 2-D interactions (as opposed to 1-D (vertical) interactions)</li>
     <li>Sweep skip - the simulation can be graphics limited, this determines the
     number of sweeps between drawing</li>
     <li>Lattice size - grid size on a side, height = width</li>
 </ul>
 
-<p>For simplicity, the quenched randomness of the model is fixed at initialization and run with only thermal randomness. Note: the graph can slow down the simulation at long times.  To speed up
+<p>For simplicity, the quenched randomness of the model is fixed at
+initialization and run with only thermal randomness. The model is
+morally the same as that detailed in the note, but with small
+differences in both the (periodic) boundary and the bulk.  Disorder corresponds to the 'p' value there, and
+dimensionality to the 'q' value.  </p>
+
+<p>Note that the
+graph can slow down the simulation after a long time.  To speed up the
 simulation, select 'none' for 'Graph type'.  Data is still being collected.</p>
 
 </div>
