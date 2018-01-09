@@ -405,6 +405,13 @@ function update_disorder(){
     calculateFlipTable(gT);
     reset_measurements();
 }
+
+function update_dimensionality(){
+    gdimensionality = parseFloat(document.getElementById('dimensionality').value);
+    document.getElementById('label_dimensionality').innerHTML = toFixed(gdimensionality,6);
+    calculateFlipTable(gT);
+    reset_measurements();
+}
     
 function update_frames(){
     frameval = parseFloat(document.getElementById('frames').value);
@@ -423,6 +430,7 @@ function update_display(){
     document.getElementById('label_field').innerHTML = toFixed(gfield,6);
     document.getElementById('label_frames').innerHTML = toFixed(frameskip,6);
     document.getElementById('label_disorder').innerHTML = toFixed(gdisorder,6);
+    document.getElementById('label_dimensionality').innerHTML = toFixed(gdimensionality,6);
 }
 
 function update_method() {
@@ -703,6 +711,15 @@ var init = function() {
             undotextbox('label_disorder_input');
         }
     }, false); 
+    
+    document.getElementById('label_dimensionality_input').addEventListener("keydown", function(e) {
+        if (e.keyCode == 13){
+            e.preventDefault();
+            document.getElementById('dimensionality').value = document.getElementById('label_dimensionality_input').value;
+            update_dimensionality();
+            undotextbox('label_dimensionality_input');
+        }
+    }, false);
 
     document.getElementById('label_frames_input').addEventListener("keydown", function(e) {
         if (e.keyCode == 13){ 
