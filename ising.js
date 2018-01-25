@@ -409,8 +409,7 @@ function update_field(){
 
 function update_disorder(){
     gdisorder = parseFloat(document.getElementById('disorder').value);
-    document.getElementById('label_disorder').innerHTML = toFixed(gdisorder,6);
-    calculateFlipTable(gT);
+    document.getElementById('label_disorder').innerHTML = toFixed(gdisorder,6)
 
     for (var i=0; i<gN*gN; i++) {
 
@@ -426,14 +425,14 @@ function update_disorder(){
 	    ghorizontalBonds[i] = -1;
 	}
     }
-
+    
+    calculateFlipTable(gT);
     reset_measurements();
 }
 
 function update_dimensionality(){
     gdimensionality = parseFloat(document.getElementById('dimensionality').value);
     document.getElementById('label_dimensionality').innerHTML = toFixed(gdimensionality,6);
-    calculateFlipTable(gT);
 
     for (var i=0; i<gN*gN; i++) {
 	
@@ -443,7 +442,8 @@ function update_dimensionality(){
 	    gdimensionalityBoard[i] = 0;
 	}
     }
-
+    
+    calculateFlipTable(gT);
     reset_measurements();
 }
     
